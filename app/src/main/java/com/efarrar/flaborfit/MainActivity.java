@@ -2,6 +2,7 @@ package com.efarrar.flaborfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXERCISE_WEIGHTS = "Weight lifting";
     public static final String EXERCISE_YOGA = "Yoga";
     public static final String EXERCISE_CARDIO = "Cardio";
+    public static final String EXTRA_ITEM_TITLE = "extra.item.title";       // will be used by the intent to pass the title  to get to the Details Activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
     /*Function that will us the constants as reference and load the proper Activity
     we will pass in the constant
-     */
-    private void loadDetailActivity(String exercistTitle) {
 
+    We are saying Activity manager load this activity, store some data, and when the activity loads it will fetch said data
+     */
+    private void loadDetailActivity(String exerciseTitle) {
+
+        /*using intent to talk with the OS to tell it that this  activity wants to load
+        DetailsActivity
+         */
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+
+        //sending data via the intent; we are passing in the title of one of the three exercises.
+        intent.putExtra(MainActivity.EXTRA_ITEM_TITLE, exerciseTitle);
+        startActivity(intent);
     }
 }
